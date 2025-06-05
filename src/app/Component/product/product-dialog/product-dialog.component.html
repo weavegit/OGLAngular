@@ -17,11 +17,9 @@
               </div>
             </div>
             <div class="text-danger">
-              <div *ngIf="(descInput?.dirty || descInput?.touched) && descInput?.errors?.['required']">This field is
+              <div *ngIf="(descInput?.touched) && descInput?.errors?.['required']">This field is
                 required.</div>
-              <div *ngIf="(descInput?.dirty || descInput?.touched) && descInput?.errors?.['minlength']">Minimum length
-                is
-                3.</div>
+              <div *ngIf="(descInput?.touched) && descInput?.errors?.['minlength']">Minimum length is 3.</div>
             </div>
 
             <div class="form-group row mt-3">
@@ -31,24 +29,23 @@
               </div>
 
               <div class="text-danger">
-                <div *ngIf="(skuInput?.dirty || skuInput?.touched) && skuInput?.errors?.['required']">This field is
+                <div *ngIf="(skuInput?.touched) && skuInput?.errors?.['required']">This field is
                   required.</div>
-                <div *ngIf="(skuInput?.dirty || skuInput?.touched) && skuInput?.errors?.['minlength']">Minimum length is
-                  3.</div>
+                <div *ngIf="(skuInput?.touched) && skuInput?.errors?.['minlength']">Minimum length is 3.</div>
               </div>
             </div>
 
             <div class="form-group row mt-3">
               <label for="priceInput" class="col-sm-4 col-form-label">Price</label>
               <div class="col-sm-12 input-group">
-                <input class="form-control" id="priceInput" formControlName="priceInput" />
+                <input class="form-control" id="priceInput" formControlName="priceInput"  (keypress)="validateNumber($event)"/>
               </div>
 
               <div class="text-danger">
-                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['required']">This field is required.</div>
-                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['min']">Minimum £0.01.</div>
-                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['max']">Maximum £1000000</div>
-                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['pattern']">Please enter numbers to 2 decimal places.</div>
+                <div *ngIf="(priceInput?.touched) && priceInput?.errors?.['required']">This field is required.</div>
+                <div *ngIf="(priceInput?.touched) && priceInput?.errors?.['min']">Minimum £0.01.</div>
+                <div *ngIf="(priceInput?.touched) && priceInput?.errors?.['max']">Maximum £1000000</div>
+                <div *ngIf="(priceInput?.touched) && priceInput?.errors?.['pattern']">Please enter numbers to 2 decimal places.</div>
               </div>
             </div>
           </div>

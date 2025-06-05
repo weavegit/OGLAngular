@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDTO } from '../../../dto/product.dto';
 @Component({
   selector: 'app-product-dialog',
-  imports: [ReactiveFormsModule,NgIf],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './product-dialog.component.html',
   styleUrl: './product-dialog.component.css'
 })
@@ -15,6 +15,7 @@ export class ProductDialogComponent implements OnInit {
   product?: ProductDTO = new ProductDTO
   existingProduct?: ProductDTO
   mode: string = ""
+  finalised:boolean = false
   activate() {
     if (this.existingProduct != undefined)
       this.product = structuredClone(this.existingProduct)
@@ -23,11 +24,12 @@ export class ProductDialogComponent implements OnInit {
   setUp() {
 
     this.addForm = new FormGroup({
-      skuInput: new FormControl({ value: this.product?.sku, disabled: false },[Validators.required, Validators.minLength(3),Validators.maxLength(100)]),
-      descInput: new FormControl({ value: this.product?.description, disabled: false },[Validators.required, Validators.minLength(3),Validators.maxLength(10)]),
-      priceInput: new FormControl({ value: this.product?.price, disabled: false },[Validators.required, Validators.min(.01),Validators.max(1000000),Validators.pattern(/^(?:99|\d{1,2})(?:\.\d{1,2})?$/)])
+      skuInput: new FormControl({ value: this.product?.sku, disabled: false }, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      descInput: new FormControl({ value: this.product?.description, disabled: false }, [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+      priceInput: new FormControl({ value: this.product?.price, disabled: false }, [Validators.required, Validators.min(.01), Validators.max(1000000), Validators.pattern(/^\d*\.?\d{0,2}$/)])
     })
-
+    this.addForm.markAsPristine()
+    this.addForm.markAsUntouched()
   }
 
   //-------------------------------
@@ -46,6 +48,7 @@ export class ProductDialogComponent implements OnInit {
     return !this.addForm.valid
   }
   Cancel() {
+
     this.activeModal.close()
   }
   Save() {
@@ -56,6 +59,14 @@ export class ProductDialogComponent implements OnInit {
 
     this.activeModal.close(this.product)
   }
+  validateNumber(e: any) {
+    let input = String.fromCharCode(e.charCode);
+    const reg =  /^\d*\.?\d{0,2}$/;
+
+    if (!reg.test(input)) {
+      e.preventDefault();
+    }
+}
   //-------------------------------
   // System
   //-------------------------------
