@@ -25,7 +25,7 @@ export class ProductDialogComponent implements OnInit {
     this.addForm = new FormGroup({
       skuInput: new FormControl({ value: this.product?.sku, disabled: false },[Validators.required, Validators.minLength(3),Validators.maxLength(100)]),
       descInput: new FormControl({ value: this.product?.description, disabled: false },[Validators.required, Validators.minLength(3),Validators.maxLength(10)]),
-      priceInput: new FormControl({ value: this.product?.price, disabled: false },[Validators.required, Validators.min(.01),Validators.max(1000000)])
+      priceInput: new FormControl({ value: this.product?.price, disabled: false },[Validators.required, Validators.min(.01),Validators.max(1000000),Validators.pattern(/^(?:99|\d{1,2})(?:\.\d{1,2})?$/)])
     })
 
   }

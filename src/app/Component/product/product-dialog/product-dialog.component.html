@@ -45,12 +45,10 @@
               </div>
 
               <div class="text-danger">
-                <div *ngIf="(addForm?.dirty || addForm?.touched) && priceInput?.errors?.['required']">This field
-                  is required.</div>
-                <div *ngIf="(addForm?.dirty || addForm?.touched) && priceInput?.errors?.['min']">Minimum
-                  £0.01.</div>
-                <div *ngIf="(addForm?.dirty || addForm?.touched) && priceInput?.errors?.['max']">Maximum
-                  £1000000</div>
+                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['required']">This field is required.</div>
+                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['min']">Minimum £0.01.</div>
+                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['max']">Maximum £1000000</div>
+                <div *ngIf="(priceInput?.dirty || priceInput?.touched) && priceInput?.errors?.['pattern']">Please enter numbers to 2 decimal places.</div>
               </div>
             </div>
           </div>
