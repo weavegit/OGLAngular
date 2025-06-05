@@ -1,0 +1,90 @@
+<form [formGroup]="addForm">
+  <div class="modal-header">
+    <div>{{mode}} Customer</div>
+  </div>
+
+
+  <div class="modal-body ">
+
+    <div class="row ">
+      <div class="col-sm-12">
+        <div class="card card-default">
+          <div class="card-body ">
+
+            <div class="form-group row mt-3">
+              <label for="nameInput" class="col-sm-4 col-form-label">Name</label>
+              <div class="col-sm-12 input-group">
+                <input type="text" class="form-control" id="nameInput" formControlName="nameInput" />
+              </div>
+            </div>
+            <div class="sk-red sk-smaller">
+              <div *ngIf="(nameInput?.dirty || nameInput?.touched) && nameInput?.errors?.['required']">This field is
+                required.</div>
+            </div>
+
+            <div class="form-group row mt-3">
+              <label for="addressInput" class="col-sm-4 col-form-label">Address</label>
+              <div class="col-sm-12 input-group">
+                <input class="form-control" id="addressInput" formControlName="addressInput" />
+              </div>
+
+              <div class="sk-red sk-smaller">
+                <div *ngIf="(addressInput?.dirty || addressInput?.touched) && addressInput?.errors?.['required']">This
+                  field is required.</div>
+                <div *ngIf="(addressInput?.dirty || addressInput?.touched) && addressInput?.errors?.['minlength']">
+                  Minimum length is 3.</div>
+              </div>
+            </div>
+
+            <div class="form-group row mt-3">
+              <label for="cityInput" class="col-sm-4 col-form-label">City</label>
+              <div class="col-sm-12 input-group">
+                <input class="form-control" id="cityInput" formControlName="cityInput" />
+              </div>
+
+              <div class="sk-red sk-smaller">
+                <div *ngIf="(cityInput?.dirty || cityInput?.touched) && cityInput?.errors?.['required']">This
+                  field is required.</div>
+                <div *ngIf="(cityInput?.dirty || cityInput?.touched) && cityInput?.errors?.['minlength']">
+                  Minimum length is 3.</div>
+              </div>
+            </div>
+
+            <div class="form-group row mt-3">
+              <label for="countyInput" class="col-sm-4 col-form-label">City</label>
+              <div class="col-sm-12 input-group">
+                <input class="form-control" id="countyInput" formControlName="countyInput" />
+              </div>
+
+              <div class="sk-red sk-smaller">
+                <div *ngIf="(countyInput?.dirty || countyInput?.touched) && countyInput?.errors?.['required']">This
+                  field is required.</div>
+                <div *ngIf="(countyInput?.dirty || countyInput?.touched) && countyInput?.errors?.['minlength']">
+                  Minimum length is 3.</div>
+              </div>
+            </div>
+
+            <div class="form-group row mt-3">
+              <label for="postcodeInput" class="col-sm-4 col-form-label">Postcode</label>
+              <div class="col-sm-12 input-group">
+                <input class="form-control" id="postcodeInput" formControlName="postcodeInput" />
+              </div>
+
+              <div class="sk-red sk-smaller">
+                <div *ngIf="(postcodeInput?.dirty || postcodeInput?.touched) && postcodeInput?.errors?.['required']">
+                  This field is required.</div>
+                <div *ngIf="(postcodeInput?.dirty || postcodeInput?.touched) && postcodeInput?.errors?.['minlength']">
+                  Minimum length is 3.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+  <div class="modal-footer">
+    <button class="btn btn-light float-end" type="button" [disabled]="this.NotSavable()" (click)="this.Save()">Save</button>
+    <button class="btn btn-light float-end" type="button" (click)="this.Cancel()">Cancel</button>
+  </div>
