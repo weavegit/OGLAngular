@@ -2,24 +2,6 @@
 
   <div class="row align-items-center   ">
 
-    <!-- <div class="col-3 border border-info first-col">
-      <h4>Add/Edit Customer</h4>
-      <form>
-        <div class="align-items-start">
-          <label for="inputsm" class="">Name</label>
-          <input class="form-control" id="inputsm" type="text">
-        </div>
-        <div class="form-group">
-          <label for="inputdefault">Address</label>
-          <input class="form-control" id="inputdefault" type="text">
-        </div>
-        <div class="form-group">
-          <label for="inputlg">Postcode</label>
-          <input class="form-control" id="inputlg" type="text">
-        </div>
-      </form>
-    </div> -->
-
     <div class="col-9  second-col">
       <div class="row mt-3">
         <div class="col-10 text-start">
@@ -44,7 +26,7 @@
             <!-- <td>{{product.id}}</td> -->
             <td>{{product.description}}</td>
             <td>{{product.sku}}</td>
-            <td  class="text-end">{{product.price}}</td>
+            <td  class="text-end">{{product.price | number : '1.2-2'}}</td>
             <td class="text-end"><button class="btn btn-sm btn-light" (click)="editProduct(product)">Edit</button></td>
           </tr>
         </tbody>

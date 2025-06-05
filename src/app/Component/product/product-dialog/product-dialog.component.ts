@@ -51,7 +51,6 @@ export class ProductDialogComponent implements OnInit {
     this.addForm.markAsPristine()
   }
   Cancel() {
-
     this.activeModal.close()
   }
   Save() {

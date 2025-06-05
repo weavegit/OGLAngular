@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './../../Service/product.service';
 import { ProductDTO } from '../../dto/product.dto'
-import { NgFor } from '@angular/common';
+import { NgFor, DecimalPipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 @Component({
   selector: 'app-product',
-  imports: [NgFor],
+  imports: [NgFor,DecimalPipe],
   providers: [ProductService],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
@@ -44,7 +44,7 @@ export class ProductComponent implements OnInit {
           this.productService.saveProduct(data).subscribe((data) => {
             for (let i = 0; i < this.products!.length; i++) {
               if (this.products![i].id == edited.id) {
-                 this.products![i] = edited
+                this.products![i] = edited
               }
             }
           })
@@ -65,9 +65,9 @@ export class ProductComponent implements OnInit {
     modalInstance.componentInstance.mode = "Add"
     modalInstance.result.then((data) => {
       if (data != undefined) {
-        this.products?.push(data)
-        this.productService.saveProduct(data).subscribe((data) => {
-
+        let newProduct = data
+        this.productService.saveProduct(newProduct).subscribe((data) => {
+          this.products?.push(newProduct)
         })
       }
     })

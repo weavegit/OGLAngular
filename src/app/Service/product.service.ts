@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpParamsOptions } from '@angular/common/http'
 import { ProductDTO } from '../dto/product.dto'
 import { catchError, retry, throwError } from 'rxjs'
 import { Constants } from '../constants'
@@ -26,11 +26,16 @@ export class ProductService {
     )
   }
   saveProduct(ProductDTO: ProductDTO) {
+   let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+
 
     let url = Constants.BASE_URL + '/product'
     let payload = JSON.stringify(ProductDTO)
     console.log(payload)
-    return this.http.post<string>(url, {data: payload, withCredentials: false }).pipe(
+    //  {"id":ProductDTO.id,"sku":ProductDTO.sku,"description":ProductDTO.description,"price":ProductDTO.price}
+    return this.http.post<string>(url,JSON.parse(payload)).pipe(
       catchError(this.handleError)
     )
   }
