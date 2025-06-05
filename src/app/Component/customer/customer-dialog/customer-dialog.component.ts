@@ -55,7 +55,9 @@ export class CustomerDialogComponent {
   NotSavable() {
     return !this.addForm.valid
   }
-
+  Clear(){
+    this.addForm.markAsPristine()
+  }
   Cancel() {
     this.activeModal.close()
   }

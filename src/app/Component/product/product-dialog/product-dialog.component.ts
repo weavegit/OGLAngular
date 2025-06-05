@@ -47,6 +47,9 @@ export class ProductDialogComponent implements OnInit {
   NotSavable() {
     return !this.addForm.valid
   }
+  Clear(){
+    this.addForm.markAsPristine()
+  }
   Cancel() {
 
     this.activeModal.close()
