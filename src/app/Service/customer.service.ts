@@ -10,6 +10,9 @@ import { CityDTO } from '../dto/cities.dto';
 })
 
 export class CustomerService {
+  //
+  //  Will get all customers
+  //
   readCustomers() {
 
     let url = Constants.BASE_URL + '/customer'
@@ -18,7 +21,11 @@ export class CustomerService {
       catchError(this.handleError)
     )
   }
-   groupCities() {
+
+  //
+  //  NEW ENDPOINT to call the grouping of the cities.
+  //
+  groupCities() {
 
     let url = Constants.BASE_URL + '/customer/group'
 
@@ -26,6 +33,9 @@ export class CustomerService {
       catchError(this.handleError)
     )
   }
+  //
+  //  Will get a specific customer - I'm not currently using this.
+  //
   readCustomer(id: number) {
 
     let url = Constants.BASE_URL + '/customer/' + id
@@ -34,14 +44,21 @@ export class CustomerService {
       catchError(this.handleError)
     )
   }
+  //
+  //  Save New or edited customer
+  //
   saveCustomer(customerDTO: CustomerDTO) {
 
     let url = Constants.BASE_URL + '/customer'
-
-    return this.http.post(url, { data: customerDTO, withCredentials: false }).pipe(
+    let payload = JSON.stringify(customerDTO)
+    console.log(payload)
+    return this.http.post(url, JSON.parse(payload)).pipe(
       catchError(this.handleError)
     )
   }
+  //
+  //  Exeption handlers
+  //
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

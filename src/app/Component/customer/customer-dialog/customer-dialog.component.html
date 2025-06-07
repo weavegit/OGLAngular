@@ -20,8 +20,8 @@
             <div class="text-danger">
               <div *ngIf="(nameInput?.dirty) && nameInput?.errors?.['required']">This field is
                 required.</div>
-                 <div *ngIf="(nameInput?.dirty) && nameInput?.errors?.['minlength']">
-                  Minimum length is 3.</div>
+              <div *ngIf="(nameInput?.dirty) && nameInput?.errors?.['minlength']">
+                Minimum length is 3.</div>
             </div>
 
             <div class="form-group row mt-3">
@@ -76,9 +76,15 @@
                 <div *ngIf="(postcodeInput?.dirty) && postcodeInput?.errors?.['required']">
                   This field is required.</div>
                 <div *ngIf="(postcodeInput?.dirty) && postcodeInput?.errors?.['minlength']">
-                  Minimum length is 3.</div>
+                  Minimum length is 7.</div>
+                         <div *ngIf="(postcodeInput?.dirty) && postcodeInput?.errors?.['maxlength']">
+                  Maximum length is 8.</div>
+                                <div *ngIf="(postcodeInput?.dirty) && postcodeInput?.errors?.['pattern']">
+                Please ensure that the postcode has a space in the appropriate place.</div>
               </div>
+
             </div>
+
           </div>
         </div>
       </div>
@@ -86,7 +92,9 @@
   </div>
 </form>
 
-  <div class="modal-footer">
-    <button class="btn btn-light float-end" type="button" [disabled]="this.NotSavable()" (click)="this.Save()">Save</button>
-    <button class="btn btn-light float-end" type="button" (mousedown)="this.Clear()" (click)="this.Cancel()">Cancel</button>
-  </div>
+<div class="modal-footer">
+  <button class="btn btn-light float-end" type="button" [disabled]="this.NotSavable()"
+    (click)="this.Save()">Save</button>
+  <button class="btn btn-light float-end" type="button" (mousedown)="this.Clear()"
+    (click)="this.Cancel()">Cancel</button>
+</div>

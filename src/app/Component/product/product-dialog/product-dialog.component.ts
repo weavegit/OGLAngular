@@ -16,11 +16,18 @@ export class ProductDialogComponent implements OnInit {
   existingProduct?: ProductDTO
   mode: string = ""
   finalised:boolean = false
+
+  //
+  //  Called from ngOnInit - set up page data
+  //
   activate() {
     if (this.existingProduct != undefined)
       this.product = structuredClone(this.existingProduct)
   }
 
+  //
+  //  Called from ngOnInit - set up form
+  //
   setUp() {
 
     this.addForm = new FormGroup({
@@ -44,6 +51,7 @@ export class ProductDialogComponent implements OnInit {
   get priceInput() {
     return this.addForm.get('priceInput')
   }
+
   NotSavable() {
     return !this.addForm.valid
   }
@@ -53,6 +61,10 @@ export class ProductDialogComponent implements OnInit {
   Cancel() {
     this.activeModal.close()
   }
+
+  //
+  //  Return back to main page
+  //
   Save() {
     //this.product!.id = 0
     this.product!.description = this.descInput!.value
@@ -61,6 +73,9 @@ export class ProductDialogComponent implements OnInit {
 
     this.activeModal.close(this.product)
   }
+  //
+  //  Private
+  //
   validateNumber(e: any) {
     let input = String.fromCharCode(e.charCode);
     const reg =  /^\d*\.?\d{0,2}$/;

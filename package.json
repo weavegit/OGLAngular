@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@popperjs/core": "^2.11.8",
     "@types/google.maps": "^3.58.1",

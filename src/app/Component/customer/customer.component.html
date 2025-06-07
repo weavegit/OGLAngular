@@ -1,62 +1,55 @@
 <form [formGroup]="customerForm">
-  <div class="row">
-    <div class="container w-50   mt-5 border border-secondary ">
+  <div style="display: flex ">
+    <div class="container w-50 mt-5 border border-secondary ">
 
-      <div class="row  ">
-
-        <div class="">
-          <div class="row mt-3">
-            <div class="col-10 text-start">
-              <div>
-                <h4>Current Customers</h4>
-              </div>
-            </div>
-            <div class="col-2">
-              <button class="btn btn-light btn-sm float-end" (click)="addNew()">Add Customer</button>
-            </div>
+      <div class="row mt-3">
+        <div class="col-10 text-start">
+          <div>
+            <h4>Current Customers</h4>
           </div>
-          <table class="table table-sm text-start">
-            <thead>
-              <tr>
-                <!-- <th scope="col"></th> -->
-                <th scope="col">Name</th>
-                <th scope="col">Adderss</th>
-                <th scope="col">City</th>
-                <th scope="col">County</th>
-                <th scope="col">
-                  Postcode
-                  <select formControlName="postcodeSelect">
-                    <option *ngFor="let code of this.postcodes" id="code">{{code}}</option>
-                  </select>
-                </th>
-                <th scope="col"> </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let customer of this.filteredCustomers; let $index = index;">
-                <!-- <td>{{customer.id}}</td> -->
-                <td>{{customer.name}}</td>
-                <td>{{customer.address}}</td>
-                <td>{{customer.city}}</td>
-                <td>{{customer.county}}</td>
-                <td>{{customer.postcode}}</td>
-                <td class="text-end"><button class="btn btn-sm btn-light" (click)="editCustomer(customer)">Edit</button>
-                </td>
-              </tr>
-
-
-            </tbody>
-          </table>
         </div>
 
+        <div class="col-2">
+          <button class="btn btn-light btn-sm float-end" (click)="addNew()">Add</button>
+        </div>
       </div>
+
+      <table class="table table-sm text-start">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Adderss</th>
+            <th scope="col">City</th>
+            <th scope="col">County</th>
+            <th scope="col">Postcode
+              <select formControlName="postcodeSelect">
+                <option *ngFor="let code of this.postcodes" id="code">{{code}}</option>
+              </select>
+            </th>
+            <th scope="col"> </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let customer of this.customers; let $index = index;">
+            <td>{{customer.name}}</td>
+            <td>{{customer.address}}</td>
+            <td>{{customer.city}}</td>
+            <td>{{customer.county}}</td>
+            <td>{{customer.postcode}}</td>
+            <td class="text-end"><button class="btn btn-sm btn-light" (click)="editCustomer(customer)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
     </div>
 
-
-    <div class="container w-25   mt-5 border border-secondary  ">
-      <h4>City Counts</h4>
-      <table class="table text-start">
+    <div class="container w-25 mt-5 border border-secondary  ">
+      <div class="row mt-3">
+        <h4>Total City Counts</h4>
+      </div>
+      <table class="table table-sm text-start">
         <thead>
           <tr>
             <th scope="col">City</th>
@@ -70,17 +63,20 @@
           </tr>
         </tbody>
       </table>
+
     </div>
-
   </div>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8d1iBQ1pqeXe_OTdB4KigqwKF6NsVlIE&callback=initMap"></script>
-<!-- <div class="my-google-map">
-  <google-map></google-map>
-</div> -->
-<!-- <div class="map-container">
-  <google-map [center]="center" [zoom]="zoom" >
-    <map-marker *ngFor="let marker of markers" [position]="marker"></map-marker>
-  </google-map>
-</div> -->
-</form>
 
+
+
+
+  <!-- <div class="map-container">
+    <google-map [center]="center" [zoom]="zoom" [options]="options">
+      <map-marker *ngFor="let marker of markers" [position]="marker"></map-marker>
+    </google-map>
+  </div> -->
+
+  <!-- prettier-ignore -->
+  <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+      ({ key: "", v: "weekly" });</script>
+</form>

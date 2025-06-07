@@ -9,6 +9,9 @@ import { Constants } from '../constants'
 })
 
 export class ProductService {
+        //
+  //  Will get all Products
+  //
   readProducts() {
 
     let url = Constants.BASE_URL + '/product'
@@ -17,6 +20,9 @@ export class ProductService {
       catchError(this.handleError)
     )
   }
+        //
+  //  Will get a specific product
+  //
   readProduct(id: number) {
 
     let url = Constants.BASE_URL + '/product/' + id
@@ -25,17 +31,19 @@ export class ProductService {
       catchError(this.handleError)
     )
   }
-  saveProduct(ProductDTO: ProductDTO) {
-   let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
 
-
+        //
+  //  Save new or edited product
+  //
+  saveProduct(productDTO: ProductDTO) {
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
 
     let url = Constants.BASE_URL + '/product'
-    let payload = JSON.stringify(ProductDTO)
+    let payload = JSON.stringify(productDTO)
     console.log(payload)
     //  {"id":ProductDTO.id,"sku":ProductDTO.sku,"description":ProductDTO.description,"price":ProductDTO.price}
-    return this.http.post<string>(url,JSON.parse(payload)).pipe(
+    return this.http.post<string>(url, JSON.parse(payload)).pipe(
       catchError(this.handleError)
     )
   }

@@ -28,7 +28,7 @@ export class CustomerDialogComponent {
       addressInput: new FormControl({ value: this.customer?.address, disabled: false }, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       cityInput: new FormControl({ value: this.customer?.city, disabled: false }, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
       countyInput: new FormControl({ value: this.customer?.county, disabled: false }, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-      postcodeInput: new FormControl({ value: this.customer?.postcode, disabled: false }, [Validators.required, Validators.minLength(3), Validators.maxLength(10)])
+      postcodeInput: new FormControl({ value: this.customer?.postcode, disabled: false }, [Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern(/^(\w{1,2}\d{1,2}\w?\s\d\w{1,2})$/)])
     })
 
   }

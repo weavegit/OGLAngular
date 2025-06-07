@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from './../../Service/customer.service';
 import { CustomerDTO } from '../../dto/customer.dto'
-import { CommonModule, NgFor } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { CustomerDialogComponent } from './customer-dialog/customer-dialog.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GoogleMapsModule } from '@angular/google-maps'
@@ -20,37 +20,69 @@ export class CustomerComponent implements OnInit {
   anySelect = "All"
   customers: CustomerDTO[] = []
   groupedCities: CityDTO[] = []
-  filteredCustomers: CustomerDTO[] = []
   postcodes: String[] = [this.anySelect]
   customerForm!: FormGroup
+  readonly FilterCodeAll = "All"
+  filterCode = this.FilterCodeAll
 
+  //
+  //  Just Google Map Test data - ignore
+  //
+  options: google.maps.MapOptions = {
+    mapId: "DEMO_MAP_ID",
+    center: { lat: -31, lng: 147 },
+    zoom: 4,
+  }
+  center: google.maps.LatLngLiteral = { lat: 40.73061, lng: -73.935242 };
+  zoom = 12;
+  markers = [
+    { lat: 40.73061, lng: -73.935242 },
+    { lat: 40.74988, lng: -73.968285 }
+  ]
+  //
+  //  Just Google Map Test data - ignore
+  //
 
-
+  //
+  //  Called from ngOnInit - set up page data
+  //
   activate() {
     this.readCustomers()
   }
 
+  //
+  //  Called from ngOnInit - set up form
+  //
   setUp() {
     this.customerForm = new FormGroup({
       postcodeSelect: new FormControl({ value: '', disabled: false })
     })
 
     this.postcodeSelect?.valueChanges.subscribe(((value) => {
-      this.filteredCustomers = []
-      for (let i = 0; i < this.customers.length; i++) {
-        if (this.customers[i].postcode.startsWith(value) || value == this.anySelect)
-          this.filteredCustomers.push(this.customers[i])
+      this.filterCode = value
+      this.customers = []
+      if (this.filterCode == this.FilterCodeAll) {
+        this.readCustomers()
+      } else {
+        this.readFilteredCustomers(this.filterCode)
       }
+
     }))
   }
 
+  //-------------------------------
+  // Form - GETTERS
+  //-------------------------------
+  get postcodeSelect() {
+    return this.customerForm.get('postcodeSelect')
+  }
+
+  //
+  //  FORM Call Customer services - no filter, but arms the postcode picker (not filtered)
+  //
   readCustomers() {
-    this.customerService.groupCities().subscribe((data) => {
-      this.groupedCities = data
-    })
     this.customerService.readCustomers().subscribe((data) => {
       this.customers = data
-      this.filteredCustomers = this.customers
       var prefix: string = ""
       for (let i = 0; i < this.customers.length; i++) {
         prefix = this.customers[i].postcode.split(" ")[0]
@@ -59,13 +91,33 @@ export class CustomerComponent implements OnInit {
         }
       }
     })
+    this.groupCities()
   }
+  //
+  //  Update view of the grouped cities
+  //
+  groupCities() {
+    this.customerService.groupCities().subscribe((data) => {
+      this.groupedCities = data
+    })
+  }
+  //
+  //  Call Customer services and Filter
+  //
+  readFilteredCustomers(filter: string) {
+    this.customerService.readCustomers().subscribe((data) => {
+      var customersLcl: CustomerDTO[] = data
+      var filteredCustomersLcl: CustomerDTO[] = []
 
-  //-------------------------------
-  // Form - GETTERS
-  //-------------------------------
-  get postcodeSelect() {
-    return this.customerForm.get('postcodeSelect')
+      var postCodePrefix: string = ""
+      for (let i = 0; i < customersLcl.length; i++) {
+        if (customersLcl[i].postcode.startsWith(filter)) {
+          filteredCustomersLcl.push(customersLcl[i])
+        }
+      }
+      this.customers = filteredCustomersLcl
+      this.groupCities()
+    })
   }
 
   addNew() {
@@ -81,7 +133,11 @@ export class CustomerComponent implements OnInit {
     modalInstance.componentInstance.mode = "Add"
     modalInstance.result.then((data) => {
       if (data != undefined) {
-        this.customers?.push(data)
+        var newCustomer = data
+        this.customerService.saveCustomer(data).subscribe((data) => {
+          this.customers?.push(newCustomer)
+          this.groupCities()
+        })
       }
     })
   }
@@ -105,15 +161,18 @@ export class CustomerComponent implements OnInit {
               this.customers![i] = edited
             }
           }
+          this.groupCities()
         })
       }
     })
   }
 
+  //
+  //  FORM Call Customer services - over
+  //
   ngOnInit(): void {
     this.activate()
     this.setUp()
-
   }
 
   constructor(
