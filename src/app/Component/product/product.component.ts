@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 @Component({
   selector: 'app-product',
-  imports: [NgFor,DecimalPipe],
+  imports: [NgFor, DecimalPipe],
   providers: [ProductService],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
@@ -14,19 +14,26 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
 export class ProductComponent implements OnInit {
 
   products?: ProductDTO[] = []
-
+  //
+  //  Called from ngOnInit - set up page data
+  //
   activate() {
     this.readProducts()
   }
 
-  setUp() {
+  // setUp() {
 
-  }
+  // }
+
+  //
+  //  FORM Call Product services
+  //
   readProducts() {
     this.productService.readProducts().subscribe((data) => {
       this.products = data
     })
   }
+    // new Product via dialog
   editProduct(existing?: ProductDTO) {
     let modalConfig = {
       animation: true,
@@ -52,6 +59,8 @@ export class ProductComponent implements OnInit {
       }
     })
   }
+
+  // new Product via dialog
   addNew() {
 
     let modalConfig = {
@@ -75,7 +84,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.activate()
-    this.setUp()
+    //this.setUp()    // no form to set up
 
   }
   constructor(

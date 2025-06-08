@@ -120,6 +120,7 @@ export class CustomerComponent implements OnInit {
     })
   }
 
+  // new cusomer via dialog
   addNew() {
 
     let modalConfig = {
@@ -137,10 +138,12 @@ export class CustomerComponent implements OnInit {
         this.customerService.saveCustomer(data).subscribe((data) => {
           this.customers?.push(newCustomer)
           this.groupCities()
+          this.updatePostcodes(newCustomer)
         })
       }
     })
   }
+    // Edit cusomer via dialog
   editCustomer(customer: CustomerDTO) {
 
     let modalConfig = {
@@ -154,19 +157,26 @@ export class CustomerComponent implements OnInit {
     modalInstance.componentInstance.mode = "Edit"
     modalInstance.result.then((data) => {
       if (data != undefined) {
-        let edited = data
+        let editedCustomer = data
         this.customerService.saveCustomer(data).subscribe((data) => {
           for (let i = 0; i < this.customers!.length; i++) {
-            if (this.customers![i].id == edited.id) {
-              this.customers![i] = edited
+            if (this.customers![i].id == editedCustomer.id) {
+              this.customers![i] = editedCustomer
             }
           }
           this.groupCities()
+          this.updatePostcodes(editedCustomer)
         })
       }
     })
   }
-
+    // update postcodes on add/edit of customer
+  updatePostcodes(customer: CustomerDTO) {
+    var prefix = customer.postcode.split(" ")[0]
+    if (!this.postcodes.includes(prefix)) {
+      this.postcodes.push(prefix)
+    }
+  }
   //
   //  FORM Call Customer services - over
   //

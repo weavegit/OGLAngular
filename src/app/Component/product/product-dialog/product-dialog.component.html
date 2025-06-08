@@ -20,6 +20,7 @@
               <div *ngIf="(descInput?.dirty) && descInput?.errors?.['required']">This field is
                 required.</div>
               <div *ngIf="(descInput?.dirty) && descInput?.errors?.['minlength']">Minimum length is 3.</div>
+                           <div *ngIf="(descInput?.dirty) && descInput?.errors?.['maxlength']">Maximum length is 255.</div>
             </div>
 
             <div class="form-group row mt-3">
